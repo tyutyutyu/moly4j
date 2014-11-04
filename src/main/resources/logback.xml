@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<charset>utf-8</charset>
+			<Pattern>[%p] %c - %m%n</Pattern>
+		</encoder>
+	</appender>
+
+	<contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+		<resetJUL>true</resetJUL>
+	</contextListener>
+
+	<logger name="org.apache" level="WARN" />
+	<!-- <logger name="org.apache.http.headers" level="TRACE" /> -->
+	<!-- <logger name="org.apache.http.wire" level="TRACE" /> -->
+
+	<root level="${logback.loglevel}">
+		<appender-ref ref="CONSOLE" />
+	</root>
+
+</configuration>
