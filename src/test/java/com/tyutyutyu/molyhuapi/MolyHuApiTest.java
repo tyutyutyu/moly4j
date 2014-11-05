@@ -6,11 +6,13 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.tyutyutyu.molyhuapi.book.ResultById;
-import com.tyutyutyu.molyhuapi.book_by_isbn.ResultByISBN;
-import com.tyutyutyu.molyhuapi.book_citations.Citation;
-import com.tyutyutyu.molyhuapi.book_reviews.Review;
-import com.tyutyutyu.molyhuapi.books.ResultByQuery;
+import com.tyutyutyu.api.moly4j.MolyHuApi;
+import com.tyutyutyu.api.moly4j.MolyHuException;
+import com.tyutyutyu.api.moly4j.book.ResultById;
+import com.tyutyutyu.api.moly4j.book_by_isbn.ResultByISBN;
+import com.tyutyutyu.api.moly4j.book_citations.Citation;
+import com.tyutyutyu.api.moly4j.book_reviews.Review;
+import com.tyutyutyu.api.moly4j.books.ResultByQuery;
 
 public class MolyHuApiTest {
 

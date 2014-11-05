@@ -1,4 +1,4 @@
-package com.tyutyutyu.molyhuapi;
+package com.tyutyutyu.api.moly4j;
 
 public class MolyHuException extends Exception {
 

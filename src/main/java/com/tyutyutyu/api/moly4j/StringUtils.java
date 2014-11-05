@@ -1,4 +1,4 @@
-package com.tyutyutyu.molyhuapi;
+package com.tyutyutyu.api.moly4j;
 
 import java.text.Normalizer;
 

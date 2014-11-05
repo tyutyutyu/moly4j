@@ -1,4 +1,4 @@
-package com.tyutyutyu.molyhuapi.book_reviews;
+package com.tyutyutyu.api.moly4j.author;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,16 +7,15 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 @ToString
-public class Review {
+public class Author {
 
 	private int id;
 
-	private int rating;
+	private String name;
 
-	private String review;
+	// TODO: rename
+	private String full_name;
 
 	private String url;
-
-	private User user;
 
 }

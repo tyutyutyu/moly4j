@@ -1,4 +1,4 @@
-package com.tyutyutyu.molyhuapi.book;
+package com.tyutyutyu.api.moly4j.book;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.tyutyutyu.molyhuapi.book_reviews;
+package com.tyutyutyu.api.moly4j.book_citations;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

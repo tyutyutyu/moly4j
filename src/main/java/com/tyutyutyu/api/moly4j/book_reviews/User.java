@@ -1,4 +1,4 @@
-package com.tyutyutyu.molyhuapi.book;
+package com.tyutyutyu.api.moly4j.book_reviews;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,8 +7,10 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 @ToString
-public class BookWrapper {
+public class User {
 
-	private ResultById book;
+	private int id;
+
+	private String login;
 
 }

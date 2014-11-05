@@ -1,4 +1,4 @@
-package com.tyutyutyu.molyhuapi.book_by_isbn;
+package com.tyutyutyu.api.moly4j.book_by_isbn;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

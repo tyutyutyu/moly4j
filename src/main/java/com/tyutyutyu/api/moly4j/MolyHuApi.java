@@ -1,4 +1,4 @@
-package com.tyutyutyu.molyhuapi;
+package com.tyutyutyu.api.moly4j;
 
 import java.util.List;
 
@@ -8,16 +8,16 @@ import org.boon.HTTP;
 import org.boon.json.JsonFactory;
 import org.boon.json.ObjectMapper;
 
-import com.tyutyutyu.molyhuapi.author.AuthorWrapper;
-import com.tyutyutyu.molyhuapi.book.BookWrapper;
-import com.tyutyutyu.molyhuapi.book.ResultById;
-import com.tyutyutyu.molyhuapi.book_by_isbn.ResultByISBN;
-import com.tyutyutyu.molyhuapi.book_citations.Citation;
-import com.tyutyutyu.molyhuapi.book_citations.CitationsWrapper;
-import com.tyutyutyu.molyhuapi.book_reviews.Review;
-import com.tyutyutyu.molyhuapi.book_reviews.ReviewsWrapper;
-import com.tyutyutyu.molyhuapi.books.BooksWrapper;
-import com.tyutyutyu.molyhuapi.books.ResultByQuery;
+import com.tyutyutyu.api.moly4j.author.AuthorWrapper;
+import com.tyutyutyu.api.moly4j.book.BookWrapper;
+import com.tyutyutyu.api.moly4j.book.ResultById;
+import com.tyutyutyu.api.moly4j.book_by_isbn.ResultByISBN;
+import com.tyutyutyu.api.moly4j.book_citations.Citation;
+import com.tyutyutyu.api.moly4j.book_citations.CitationsWrapper;
+import com.tyutyutyu.api.moly4j.book_reviews.Review;
+import com.tyutyutyu.api.moly4j.book_reviews.ReviewsWrapper;
+import com.tyutyutyu.api.moly4j.books.BooksWrapper;
+import com.tyutyutyu.api.moly4j.books.ResultByQuery;
 
 @Slf4j
 public class MolyHuApi {
@@ -98,7 +98,7 @@ public class MolyHuApi {
 	 * @return
 	 * @throws MolyHuException
 	 */
-	public com.tyutyutyu.molyhuapi.author.Author getAuthorById(int id) throws MolyHuException {
+	public com.tyutyutyu.api.moly4j.author.Author getAuthorById(int id) throws MolyHuException {
 
 		final String jsonResponse = HTTP.getJSON(GET_AUTHOR_BY_ID_URL.replace("{id}", id + ""), null);
 		final AuthorWrapper result = mapper.readValue(jsonResponse, AuthorWrapper.class);

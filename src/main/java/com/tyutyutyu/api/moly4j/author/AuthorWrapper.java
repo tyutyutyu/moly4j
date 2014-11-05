@@ -1,4 +1,4 @@
-package com.tyutyutyu.molyhuapi.book_citations;
+package com.tyutyutyu.api.moly4j.author;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,10 +7,8 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 @ToString
-public class User {
+public class AuthorWrapper {
 
-	private int id;
-
-	private String login;
+	private Author author;
 
 }
