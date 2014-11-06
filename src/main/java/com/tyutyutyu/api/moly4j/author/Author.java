@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Getter
 @NoArgsConstructor
 @ToString
@@ -13,8 +15,8 @@ public class Author {
 
 	private String name;
 
-	// TODO: rename
-	private String full_name;
+	@JsonProperty("full_name")
+	private String fullName;
 
 	private String url;
 

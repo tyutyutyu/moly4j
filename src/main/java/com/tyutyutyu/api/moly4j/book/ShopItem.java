@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Getter
 @NoArgsConstructor
 @ToString
@@ -14,8 +16,8 @@ public class ShopItem {
 	/**
 	 * Eredeti ár
 	 */
-	// TODO: rename
-	private Integer original_price;
+	@JsonProperty("original_price")
+	private Integer originalPrice;
 
 	/**
 	 * (Kedvezményes) ár

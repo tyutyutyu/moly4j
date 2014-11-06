@@ -1,13 +1,13 @@
 package com.tyutyutyu.api.moly4j;
 
+import java.io.IOException;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.boon.HTTP;
-import org.boon.json.JsonFactory;
-import org.boon.json.ObjectMapper;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import com.tyutyutyu.api.moly4j.author.AuthorWrapper;
 import com.tyutyutyu.api.moly4j.book.BookWrapper;
 import com.tyutyutyu.api.moly4j.book.ResultById;
@@ -24,14 +24,14 @@ public class MolyHuApi {
 
 	private static final MolyHuApi INSTANCE = new MolyHuApi();
 
-	private static final String SEARCH_BY_QUERY_URL = "http://moly.hu/api/books.json?q={q}";
-	private static final String GET_BY_ISBN_URL = "http://moly.hu/api/book_by_isbn.json?q={q}";
+	private static final String SEARCH_BY_QUERY_URL = "http://moly.hu/api/books.json";
+	private static final String GET_BY_ISBN_URL = "http://moly.hu/api/book_by_isbn.json";
 	private static final String GET_BY_ID_URL = "http://moly.hu/api/book/{id}.json";
 	private static final String GET_AUTHOR_BY_ID_URL = "http://moly.hu/api/author/{id}.json";
-	private static final String GET_REVIEWS_BY_ID_URL = "http://moly.hu/api/book_reviews/{id}.json?page={page}";
-	private static final String GET_CITATIONS_BY_ID_URL = "http://moly.hu/api/book_citations/{id}.json?page={page}";
+	private static final String GET_REVIEWS_BY_ID_URL = "http://moly.hu/api/book_reviews/{id}.json";
+	private static final String GET_CITATIONS_BY_ID_URL = "http://moly.hu/api/book_citations/{id}.json";
 
-	private final ObjectMapper mapper = JsonFactory.create();
+	private final ObjectMapper mapper = new ObjectMapper();
 
 	private MolyHuApi() {
 	}
@@ -50,8 +50,24 @@ public class MolyHuApi {
 	 */
 	public List<ResultByQuery> searchByQuery(String q) throws MolyHuException {
 
-		final String jsonResponse = HTTP.getJSON(SEARCH_BY_QUERY_URL.replace("{q}", StringUtils.stripAccents(q)), null);
-		final BooksWrapper result = mapper.readValue(jsonResponse, BooksWrapper.class);
+		String jsonResponse;
+		try {
+			// @formatter:off
+			jsonResponse = Unirest.get(SEARCH_BY_QUERY_URL)
+					.queryString("q", StringUtils.stripAccents(q))
+					.asString()
+					.getBody();
+			// @formatter:on
+		} catch (final UnirestException e) {
+			throw new MolyHuException(e);
+		}
+
+		BooksWrapper result;
+		try {
+			result = mapper.readValue(jsonResponse, BooksWrapper.class);
+		} catch (final IOException e) {
+			throw new MolyHuException(e);
+		}
 
 		log.debug("result: {}", result);
 		return result.getBooks();
@@ -67,8 +83,24 @@ public class MolyHuApi {
 	 */
 	public ResultByISBN getByISBN(String q) throws MolyHuException {
 
-		final String jsonResponse = HTTP.getJSON(GET_BY_ISBN_URL.replace("{q}", q), null);
-		final ResultByISBN result = mapper.readValue(jsonResponse, ResultByISBN.class);
+		String jsonResponse;
+		try {
+			// @formatter:off
+			jsonResponse = Unirest.get(GET_BY_ISBN_URL)
+					.queryString("q", q)
+					.asString()
+					.getBody();
+			// @formatter:on
+		} catch (final UnirestException e) {
+			throw new MolyHuException(e);
+		}
+
+		ResultByISBN result;
+		try {
+			result = mapper.readValue(jsonResponse, ResultByISBN.class);
+		} catch (final IOException e) {
+			throw new MolyHuException(e);
+		}
 
 		log.debug("result: {}", result);
 		return result;
@@ -83,8 +115,24 @@ public class MolyHuApi {
 	 */
 	public ResultById getById(int id) throws MolyHuException {
 
-		final String jsonResponse = HTTP.getJSON(GET_BY_ID_URL.replace("{id}", id + ""), null);
-		final BookWrapper result = mapper.readValue(jsonResponse, BookWrapper.class);
+		String jsonResponse;
+		try {
+			// @formatter:off
+			jsonResponse = Unirest.get(GET_BY_ID_URL)
+					.routeParam("id", id + "")
+					.asString()
+					.getBody();
+			// @formatter:on
+		} catch (final UnirestException e) {
+			throw new MolyHuException(e);
+		}
+
+		BookWrapper result;
+		try {
+			result = mapper.readValue(jsonResponse, BookWrapper.class);
+		} catch (final IOException e) {
+			throw new MolyHuException(e);
+		}
 
 		log.debug("result: {}", result);
 		return result.getBook();
@@ -100,8 +148,24 @@ public class MolyHuApi {
 	 */
 	public com.tyutyutyu.api.moly4j.author.Author getAuthorById(int id) throws MolyHuException {
 
-		final String jsonResponse = HTTP.getJSON(GET_AUTHOR_BY_ID_URL.replace("{id}", id + ""), null);
-		final AuthorWrapper result = mapper.readValue(jsonResponse, AuthorWrapper.class);
+		String jsonResponse;
+		try {
+			// @formatter:off
+			jsonResponse = Unirest.get(GET_AUTHOR_BY_ID_URL)
+					.routeParam("id", id + "")
+					.asString()
+					.getBody();
+			// @formatter:on
+		} catch (final UnirestException e) {
+			throw new MolyHuException(e);
+		}
+
+		AuthorWrapper result;
+		try {
+			result = mapper.readValue(jsonResponse, AuthorWrapper.class);
+		} catch (final IOException e) {
+			throw new MolyHuException(e);
+		}
 
 		log.debug("result: {}", result);
 		return result.getAuthor();
@@ -119,9 +183,25 @@ public class MolyHuApi {
 	 */
 	public List<Review> getBookReviews(int id, int page) throws MolyHuException {
 
-		final String jsonResponse = HTTP.getJSON(
-				GET_REVIEWS_BY_ID_URL.replace("{id}", id + "").replace("{page}", page + ""), null);
-		final ReviewsWrapper result = mapper.readValue(jsonResponse, ReviewsWrapper.class);
+		String jsonResponse;
+		try {
+			// @formatter:off
+			jsonResponse = Unirest.get(GET_REVIEWS_BY_ID_URL)
+					.routeParam("id", id + "")
+					.queryString("page", page)
+					.asString()
+					.getBody();
+			// @formatter:on
+		} catch (final UnirestException e) {
+			throw new MolyHuException(e);
+		}
+
+		ReviewsWrapper result;
+		try {
+			result = mapper.readValue(jsonResponse, ReviewsWrapper.class);
+		} catch (final IOException e) {
+			throw new MolyHuException(e);
+		}
 
 		log.debug("result: {}", result);
 		return result.getReviews();
@@ -137,11 +217,27 @@ public class MolyHuApi {
 	 * @return
 	 * @throws MolyHuException
 	 */
-	public List<Citation> getBookCitations(String id, int page) throws MolyHuException {
+	public List<Citation> getBookCitations(int id, int page) throws MolyHuException {
 
-		final String jsonResponse = HTTP.getJSON(
-				GET_CITATIONS_BY_ID_URL.replace("{id}", id + "").replace("{page}", page + ""), null);
-		final CitationsWrapper result = mapper.readValue(jsonResponse, CitationsWrapper.class);
+		String jsonResponse;
+		try {
+			// @formatter:off
+			jsonResponse = Unirest.get(GET_CITATIONS_BY_ID_URL)
+					.routeParam("id", id + "")
+					.queryString("page", page)
+					.asString()
+					.getBody();
+			// @formatter:on
+		} catch (final UnirestException e) {
+			throw new MolyHuException(e);
+		}
+
+		CitationsWrapper result;
+		try {
+			result = mapper.readValue(jsonResponse, CitationsWrapper.class);
+		} catch (final IOException e) {
+			throw new MolyHuException(e);
+		}
 
 		log.debug("result: {}", result);
 		return result.getCitations();

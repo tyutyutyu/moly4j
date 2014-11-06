@@ -57,8 +57,8 @@ public class MolyHuApiTest {
 		assertThat(result.getCover()).isEqualTo("http://moly.hu/system/covers/normal/covers_31532.jpg");
 		assertThat(result.getUrl()).isEqualTo("http://moly.hu/konyvek/ernest-hemingway-vandorunnep");
 		assertThat(result.getTags()).hasSize(4);
-		assertThat(result.getLike_average()).isBetween(1D, 5D);
-		assertThat(result.getLike_count()).isBetween(0, Integer.MAX_VALUE);
+		assertThat(result.getLikeAverage()).isBetween(1D, 5D);
+		assertThat(result.getLikeCount()).isBetween(0, Integer.MAX_VALUE);
 	}
 
 	@SuppressWarnings("static-method")
@@ -70,10 +70,10 @@ public class MolyHuApiTest {
 		final ResultById result = MolyHuApi.getInstance().getById(8771);
 
 		assertThat(result).isNotNull();
-		assertThat(result.getShop_items()).hasSize(1);
-		assertThat(result.getShop_items().get(0).getOriginal_price()).isBetween(4000, 6000);
-		assertThat(result.getShop_items().get(0).getPrice()).isBetween(2000, 6000);
-		assertThat(result.getShop_items().get(0).getAllowance()).isBetween(0D, 1D);
+		assertThat(result.getShopItems()).hasSize(1);
+		assertThat(result.getShopItems().get(0).getOriginalPrice()).isBetween(4000, 6000);
+		assertThat(result.getShopItems().get(0).getPrice()).isBetween(2000, 6000);
+		assertThat(result.getShopItems().get(0).getAllowance()).isBetween(0D, 1D);
 	}
 
 	@SuppressWarnings("static-method")
@@ -101,7 +101,7 @@ public class MolyHuApiTest {
 
 		Thread.sleep(1000);
 
-		final List<Citation> results = MolyHuApi.getInstance().getBookCitations("15331", 1);
+		final List<Citation> results = MolyHuApi.getInstance().getBookCitations(15331, 1);
 
 		assertThat(results).isNotNull();
 		assertThat(results).hasSize(10);

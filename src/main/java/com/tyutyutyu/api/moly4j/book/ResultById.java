@@ -9,6 +9,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Builder;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Getter
 @NoArgsConstructor
 @ToString
@@ -30,18 +32,14 @@ public class ResultById {
 
 	private List<Tag> tags;
 
-	// TODO: Boon annotations not working
-	// @JsonProperty("like_average")
-	// @SerializedName("like_average")
-	// @Named("like_average")
-	// @In("like_average")
-	private double like_average;
+	@JsonProperty("like_average")
+	private double likeAverage;
 
-	// @JsonProperty("like_count")
-	private int like_count;
+	@JsonProperty("like_count")
+	private int likeCount;
 
-	// @JsonProperty("shop_items")
-	private List<ShopItem> shop_items;
+	@JsonProperty("shop_items")
+	private List<ShopItem> shopItems;
 
 	@AllArgsConstructor
 	@Builder
