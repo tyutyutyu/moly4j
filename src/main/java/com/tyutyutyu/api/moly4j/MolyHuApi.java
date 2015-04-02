@@ -1,10 +1,5 @@
 package com.tyutyutyu.api.moly4j;
 
-import java.io.IOException;
-import java.util.List;
-
-import lombok.extern.slf4j.Slf4j;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -19,24 +14,36 @@ import com.tyutyutyu.api.moly4j.book_reviews.ReviewsWrapper;
 import com.tyutyutyu.api.moly4j.books.BooksWrapper;
 import com.tyutyutyu.api.moly4j.books.ResultByQuery;
 
+import java.io.IOException;
+import java.util.List;
+
+import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 public class MolyHuApi {
 
 	private static final MolyHuApi INSTANCE = new MolyHuApi();
 
 	private static final String SEARCH_BY_QUERY_URL = "http://moly.hu/api/books.json";
+
 	private static final String GET_BY_ISBN_URL = "http://moly.hu/api/book_by_isbn.json";
+
 	private static final String GET_BY_ID_URL = "http://moly.hu/api/book/{id}.json";
+
 	private static final String GET_AUTHOR_BY_ID_URL = "http://moly.hu/api/author/{id}.json";
+
 	private static final String GET_REVIEWS_BY_ID_URL = "http://moly.hu/api/book_reviews/{id}.json";
+
 	private static final String GET_CITATIONS_BY_ID_URL = "http://moly.hu/api/book_citations/{id}.json";
 
 	private final ObjectMapper mapper = new ObjectMapper();
 
 	private MolyHuApi() {
+
 	}
 
 	public static MolyHuApi getInstance() {
+
 		return INSTANCE;
 	}
 
@@ -45,8 +52,9 @@ public class MolyHuApi {
 	 *
 	 * @param q
 	 *            Keresőkifejezés
-	 * @return
+	 * @return Találati lista
 	 * @throws MolyHuException
+	 *             Hiba esetén
 	 */
 	public List<ResultByQuery> searchByQuery(String q) throws MolyHuException {
 
@@ -78,8 +86,9 @@ public class MolyHuApi {
 	 *
 	 * @param q
 	 *            Keresőkifejezés
-	 * @return
+	 * @return Találat
 	 * @throws MolyHuException
+	 *             Hiba esetén
 	 */
 	public ResultByISBN getByISBN(String q) throws MolyHuException {
 
@@ -93,6 +102,11 @@ public class MolyHuApi {
 			// @formatter:on
 		} catch (final UnirestException e) {
 			throw new MolyHuException(e);
+		}
+
+		if ("".equals(jsonResponse.trim())) {
+			// TODO: null or exception?
+			return null;
 		}
 
 		ResultByISBN result;
@@ -110,8 +124,10 @@ public class MolyHuApi {
 	 * Könyvadatok
 	 *
 	 * @param id
-	 * @return
+	 *            Könyv azonosító
+	 * @return Találat
 	 * @throws MolyHuException
+	 *             Hiba esetén
 	 */
 	public ResultById getById(int id) throws MolyHuException {
 
@@ -143,8 +159,9 @@ public class MolyHuApi {
 	 *
 	 * @param id
 	 *            Szerző azonosító
-	 * @return
+	 * @return Szerző adatok
 	 * @throws MolyHuException
+	 *             Hiba esetén
 	 */
 	public com.tyutyutyu.api.moly4j.author.Author getAuthorById(int id) throws MolyHuException {
 
@@ -178,8 +195,9 @@ public class MolyHuApi {
 	 *            Könyv azonosító
 	 * @param page
 	 *            Oldalszám
-	 * @return
+	 * @return Értékelések
 	 * @throws MolyHuException
+	 *             Hiba esetén
 	 */
 	public List<Review> getBookReviews(int id, int page) throws MolyHuException {
 
@@ -214,8 +232,9 @@ public class MolyHuApi {
 	 *            Könyv azonosító
 	 * @param page
 	 *            Oldalszám
-	 * @return
+	 * @return Idézetek
 	 * @throws MolyHuException
+	 *             Hiba esetén
 	 */
 	public List<Citation> getBookCitations(int id, int page) throws MolyHuException {
 
