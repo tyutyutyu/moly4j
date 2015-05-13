@@ -1,6 +1,21 @@
 language: java
+
+env:
+  global:
+   - secure: "EeRAvX8E+mm5N74P89Rxw+w+FzBXB8y+rA0YLZOaihQN6zz/SPgi0dV1oib36OFehTUyyd4DXSTGqByvoDT38z0KUCsdqEpzJ2s2dQyyWjJ27xC8Fu5ogv7JhfF794cqdVNwr3YdNENW5dvofYqXNuBsIv2379vg4NExiqHNahg="
+
 jdk:
-  - oraclejdk8
+ - oraclejdk8
 
 after_success:
-  - mvn deploy -DskipTests=true
+ - mvn deploy -DskipTests=true
+
+addons:
+  coverity_scan:
+    project:
+      name: "tyutyutyu/moly4j"
+      description: "Build submitted via Travis CI"
+    notification_email: istvan.foldhazi@gmail.com
+    build_command_prepend: "mvn clean"
+    build_command:   "mvn -DskipTests=true package"
+    branch_pattern: coverity_scan
