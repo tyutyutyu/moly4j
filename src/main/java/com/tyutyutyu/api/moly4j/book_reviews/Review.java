@@ -6,7 +6,7 @@ import lombok.ToString;
 
 @Getter
 @NoArgsConstructor
-@ToString
+@ToString(exclude = { "review" })
 public class Review {
 
 	private int id;

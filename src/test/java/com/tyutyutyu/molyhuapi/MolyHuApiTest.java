@@ -56,7 +56,7 @@ public class MolyHuApiTest {
 		assertThat(result.getTitle()).isEqualTo("V\u00e1ndor\u00fcnnep");
 		assertThat(result.getCover()).isEqualTo("http://moly.hu/system/covers/normal/covers_31532.jpg");
 		assertThat(result.getUrl()).isEqualTo("http://moly.hu/konyvek/ernest-hemingway-vandorunnep");
-		assertThat(result.getTags()).hasSize(4);
+		assertThat(result.getTags()).isNotEmpty();
 		assertThat(result.getLikeAverage()).isBetween(1D, 5D);
 		assertThat(result.getLikeCount()).isBetween(0, Integer.MAX_VALUE);
 	}

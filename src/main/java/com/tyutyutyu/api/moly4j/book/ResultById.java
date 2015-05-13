@@ -1,5 +1,8 @@
 package com.tyutyutyu.api.moly4j.book;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tyutyutyu.api.moly4j.editor.Editor;
+
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -9,16 +12,16 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Builder;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 @Getter
 @NoArgsConstructor
-@ToString
+@ToString(exclude = { "description" })
 public class ResultById {
 
 	private int id;
 
 	private List<Author> authors;
+
+	private List<Editor> editors;
 
 	private String title;
 
