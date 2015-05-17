@@ -1,2 +1,3 @@
 machine: 
-    java: oraclejdk8
+    java: 
+        version: oraclejdk8
