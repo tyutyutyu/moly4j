@@ -1,11 +1,11 @@
 package com.tyutyutyu.api.moly4j.book_by_isbn;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.Builder;
 
 @AllArgsConstructor
 @Builder
